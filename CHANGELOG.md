@@ -1,5 +1,23 @@
 # Changelog
 
+## 2026-08-11: README voice and structure (v1.0.1)
+
+### Changed
+
+- Reworked the public README in Benjamin's voice while preserving the
+  model-specific installation contract, behavior claims, measured status,
+  sources, license, and notice.
+- Aligned its section order with the Scoville project READMEs and expanded the
+  family section to all six current Skills.
+- Kept the system prompt itself unchanged; this release changes its public
+  explanation, not Codex behavior.
+
+### Validation
+
+- The README structure, internal links, shared family copy, and Markdown
+  whitespace checks passed.
+- No model-behavior benchmark was run because the system prompt did not change.
+
 ## 2026-08-03: Fable naming alignment
 
 ### Changed

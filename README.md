@@ -125,10 +125,14 @@ The full prompt lives in
 
 ## How it works
 
-The prompt starts from the official Codex `base_instructions` in
-[models.json](https://github.com/openai/codex/blob/main/codex-rs/models-manager/models.json).
-It preserves that architecture and changes the parts that govern collaboration
-and writing.
+The prompt starts from the official GPT-5.6 Sol
+[`model_messages.instructions_template`](https://github.com/openai/codex/blob/e20616d2650de6cde27e8513cbf266ed75851071/codex-rs/models-manager/models.json)
+in Codex. Only `# Personality` is modified. The preamble and everything from
+`# Working with the user` onward—including channels, formatting, work rules,
+destructive-action handling, and `# Using skills`—remain word-for-word
+identical to the locked [upstream snapshot](upstream/gpt-5.6-sol-instructions-template.md).
+The [boundary verifier](scripts/verify-upstream-boundaries.ps1) fails if either
+the snapshot or a protected span drifts.
 
 Conversation rules apply only to direct assistant-user communication.
 Requested artifacts keep their own source, audience, genre, and voice, while
@@ -141,6 +145,18 @@ claim can trigger a visibly hypothetical numerical counterexample. A request
 about a tool's usefulness can trigger one representative workflow from input to
 external verification. These mechanisms improve explanatory completeness
 without requiring every answer to be long, formatted, or humorous.
+
+Codex supplies tool schemas and optional plugin or app instructions separately
+at runtime; this file does not reproduce or modify them. `model_instructions_file`
+replaces the built-in model instructions and disables catalog personality
+variables for that override, so the Fable section must remain explicit here.
+
+SkillOpt Studio currently optimizes an Agent Skill loaded from `SKILL.md`; it
+cannot treat a system-prompt section as an equivalent target without a new
+adapter. A safe adapter would expose only `# Personality` to the optimizer,
+reassemble every candidate with the locked upstream text, reject any protected
+hash change, evaluate section-specific behavior, and then run one full composed
+regression. It must never offer the complete prompt for general compression.
 
 ## Scoville family
 
@@ -162,25 +178,36 @@ needs:
 
 ## Status
 
-The repository contains the modified prompt, this README, a changelog, the
-Apache 2.0 license, and the required notice. It contains no installer,
-executable code, model weights, telemetry, or runtime network integration.
+The repository contains the modified prompt, its locked upstream snapshot, a
+boundary-verification script, this README, a changelog, the Apache 2.0 license,
+and the required notice. It contains no installer, model weights, telemetry, or
+runtime network integration.
 
-The current prompt is calibrated against a fixed 40-question suite plus focused
-tests for explanatory examples, numeric invariants, completion conditions,
-structure, source fidelity, and controlled humor. These checks demonstrate the
-tested behaviors; they do not guarantee identical output for every request.
+The Fable `# Personality` text is unchanged from v1.0.1 and retains its earlier
+40-question and focused calibration evidence. The new composition has static
+source and boundary proof, but has not yet been run through a fresh full-model
+behavior suite. Previous results do not become new evidence merely because the
+editable section survived the move.
 
-The prompt tracks a changing upstream file. After a Codex update, compare the
-Skills section with the current GPT-5.6 Sol `base_instructions`, verify that the
-named tools and channels still exist, and rerun the fixed tests before adopting
-the new base. Last verified against upstream: 2026-07-18.
+The prompt tracks a changing upstream file. After a Codex update, refresh the
+locked `instructions_template`, reapply only the approved `# Personality`
+section, run `scripts/verify-upstream-boundaries.ps1`, verify the runtime tool,
+plugin, app, and channel contracts, and rerun the behavioral tests before
+adopting the new base. Last verified against upstream commit
+`e20616d2650de6cde27e8513cbf266ed75851071`: 2026-08-11.
 
 ## Sources
 
-- The official Codex `base_instructions` for GPT-5.6 Sol in
-  [models.json](https://github.com/openai/codex/blob/main/codex-rs/models-manager/models.json)
+- The official GPT-5.6 Sol `model_messages.instructions_template` in
+  [models.json](https://github.com/openai/codex/blob/e20616d2650de6cde27e8513cbf266ed75851071/codex-rs/models-manager/models.json)
   supplies the upstream architecture and operational contract.
+- Codex's
+  [model renderer](https://github.com/openai/codex/blob/e20616d2650de6cde27e8513cbf266ed75851071/codex-rs/protocol/src/openai_models.rs)
+  and [configuration override](https://github.com/openai/codex/blob/e20616d2650de6cde27e8513cbf266ed75851071/codex-rs/models-manager/src/model_info.rs)
+  define personality-variable substitution and the literal custom-instructions
+  path.
+- Codex's [world-state assembly](https://github.com/openai/codex/blob/e20616d2650de6cde27e8513cbf266ed75851071/codex-rs/core/src/session/world_state.rs)
+  supplies eligible plugin and app guidance separately at runtime.
 - A fixed set of Fable 5 outputs supplies the comparison target for directness,
   reasoning depth, and honest limits. The prompt adopts observed response
   mechanics, not unsupported claims or hidden implementation details.

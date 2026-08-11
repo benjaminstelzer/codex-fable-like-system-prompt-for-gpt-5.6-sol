@@ -1,5 +1,35 @@
 # Changelog
 
+## 2026-08-11: Upstream-exact operational contract (v1.1.0)
+
+### Changed
+
+- Rebased the prompt on the current GPT-5.6 Sol
+  `model_messages.instructions_template` from OpenAI Codex commit
+  `e20616d2650de6cde27e8513cbf266ed75851071`.
+- Limited the complete Fable modification boundary to `# Personality` and kept
+  the upstream preamble plus everything from `# Working with the user` onward
+  word-for-word unchanged.
+- Restored the current official `# Using skills` section instead of retaining
+  later local rewrites of its announcement rules.
+- Removed local operational additions that were not part of the public
+  upstream template, including the extra instruction-boundary, code-style,
+  root-cause, artifact-state, and expanded destructive-action sections.
+- Added a locked upstream snapshot and a hash-based boundary verifier.
+- Fixed LF line endings for the prompt, snapshot, and verifier so byte checks
+  remain stable across Windows checkouts.
+- Documented why the current SkillOpt Studio cannot yet optimize a system-prompt
+  section safely and the adapter boundary required before it can.
+
+### Validation
+
+- The complete upstream snapshot matches SHA-256
+  `cbefa6b0bede0e332d957fca70ccacf9f12f4c0ecdf81b819e5cbe1a3b16e265`.
+- The protected prompt span and `# Using skills` section match their pinned
+  upstream hashes.
+- A fresh full-model behavior suite has not yet been run for the rebased
+  composition; earlier Fable personality tests are not reported as new proof.
+
 ## 2026-08-11: README voice and structure (v1.0.1)
 
 ### Changed

@@ -1,8 +1,8 @@
 OpenAI Codex
 Copyright 2025 OpenAI
 
-This project contains modified material from the GPT-5.6 Sol base instructions
-in codex-rs/models-manager/models.json from the OpenAI Codex repository:
+This project contains modified material from the GPT-5.6 Sol instructions
+template in codex-rs/models-manager/models.json from the OpenAI Codex repository:
 https://github.com/openai/codex
 
 Modifications Copyright 2026 Benjamin Stelzer.

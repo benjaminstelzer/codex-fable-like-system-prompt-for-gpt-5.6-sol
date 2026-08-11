@@ -44,7 +44,7 @@ when the task is actually complete.
 
 If Codex still opens by complimenting the question, verify both
 `model_instructions_file` and the configured model. The behavior is a useful
-symptom, not a diagnosis; even configuration bugs deserve evidence.
+symptom, not a diagnosis. Even configuration bugs deserve evidence.
 
 ## Install
 
@@ -128,16 +128,17 @@ The full prompt lives in
 The prompt starts from the official GPT-5.6 Sol
 [`model_messages.instructions_template`](https://github.com/openai/codex/blob/e20616d2650de6cde27e8513cbf266ed75851071/codex-rs/models-manager/models.json)
 in Codex. Only `# Personality` is modified. The preamble and everything from
-`# Working with the user` onward—including channels, formatting, work rules,
-destructive-action handling, and `# Using skills`—remain word-for-word
-identical to the locked [upstream snapshot](upstream/gpt-5.6-sol-instructions-template.md).
+`# Working with the user` onward remain word-for-word identical to the locked
+[upstream snapshot](upstream/gpt-5.6-sol-instructions-template.md). This
+protected span includes channels, formatting, work rules, destructive-action
+handling, and `# Using skills`.
 The [boundary verifier](scripts/verify-upstream-boundaries.ps1) fails if either
 the snapshot or a protected span drifts.
 
 Conversation rules apply only to direct assistant-user communication.
 Requested artifacts keep their own source, audience, genre, and voice, while
 safety, factual integrity, and honest reporting apply everywhere. Agent Skills
-compose with the prompt during generation; they are not cleanup passes over an
+compose with the prompt during generation. They are not cleanup passes over an
 answer that has already wandered off.
 
 The rules use observable triggers rather than style imitation. A small-sample
@@ -147,11 +148,11 @@ external verification. These mechanisms improve explanatory completeness
 without requiring every answer to be long, formatted, or humorous.
 
 Codex supplies tool schemas and optional plugin or app instructions separately
-at runtime; this file does not reproduce or modify them. `model_instructions_file`
+at runtime. This file does not reproduce or modify them. `model_instructions_file`
 replaces the built-in model instructions and disables catalog personality
 variables for that override, so the Fable section must remain explicit here.
 
-SkillOpt Studio currently optimizes an Agent Skill loaded from `SKILL.md`; it
+SkillOpt Studio currently optimizes an Agent Skill loaded from `SKILL.md`. It
 cannot treat a system-prompt section as an equivalent target without a new
 adapter. A safe adapter would expose only `# Personality` to the optimizer,
 reassemble every candidate with the locked upstream text, reject any protected

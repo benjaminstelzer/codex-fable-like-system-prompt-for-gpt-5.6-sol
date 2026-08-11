@@ -3,15 +3,15 @@
 Keeps Codex's machinery. Changes how it works with you.
 
 A system prompt is the main instruction layer that shapes an AI assistant's
-behavior. This repository contains a modified prompt for Codex with GPT-5.6
-Sol. Its collaboration style is calibrated against useful patterns observed in
-Fable 5 outputs: direct conclusions, explicit reasoning, honest limits, useful
-structure, and less conversational padding.
+behavior. This repository contains a modified GPT-5.6 Sol prompt for Codex,
+calibrated against useful patterns observed in Fable 5 outputs: direct
+conclusions, explicit reasoning, honest limits, useful structure, and less
+conversational padding.
 
-The prompt is based on the official Codex `base_instructions` in
-[models.json](https://github.com/openai/codex/blob/main/codex-rs/models-manager/models.json).
-Codex's communication channels, editing tools, safety boundaries, planning
-mechanism, and Agent Skills support remain intact.
+The prompt keeps Codex's communication channels, editing tools, safety
+boundaries, planning mechanism, and Agent Skills support. The point is not to
+dress one assistant as another. It is to keep the useful response mechanics and
+leave the costume department unemployed.
 
 > [!IMPORTANT]
 > Use this system prompt only with GPT-5.6 Sol. It follows that model's base
@@ -29,6 +29,22 @@ evidence actually proves.
 That does not mean copying every visible trait of another assistant. Length,
 bold labels, lists, and jokes are not quotas. The target is the useful causal
 structure behind the style, not a costume assembled from punctuation.
+
+## How to use
+
+Install the prompt as the global instruction file for GPT-5.6 Sol, restart
+Codex, and open a new task. It then applies to direct collaboration while
+documents, interface strings, commits, and other requested artifacts keep their
+own voice and project conventions.
+
+The change should be visible in behavior, not in a new verbal uniform. Ask for
+a decision, a causal explanation, or an evidence-backed code change. Codex
+should lead with the result, connect claims to mechanisms and limits, and stop
+when the task is actually complete.
+
+If Codex still opens by complimenting the question, verify both
+`model_instructions_file` and the configured model. The behavior is a useful
+symptom, not a diagnosis; even configuration bugs deserve evidence.
 
 ## Install
 
@@ -67,10 +83,7 @@ Requirements:
 Report the installed path, configuration path, whether the configuration changed, and the verification results. Do not print secrets, unrelated settings, or the downloaded prompt.
 ```
 
-Restart Codex and open a new session after installation. If the assistant still
-opens by complimenting the question, verify both `model_instructions_file` and
-the configured model. The behavior is a useful symptom, not a diagnosis; even
-configuration bugs deserve evidence.
+Restart Codex and open a new task after installation.
 
 ## What it changes
 
@@ -81,7 +94,7 @@ configuration bugs deserve evidence.
   names what is known, what is not, and the cheapest observation that would
   resolve the gap.
 - **Explanatory depth.** A how, why, analysis, or comparison answer connects the
-  claim to its cause and consequence. Load-bearing examples follow a concrete
+  claim to its cause and consequence. Load-bearing examples follow one concrete
   instance to an observable result instead of listing adjacent cases.
 - **Visible structure when the argument has structure.** Short labels, bullets,
   numbered steps, and headings expose genuinely separate dimensions. Connected
@@ -108,40 +121,62 @@ configuration bugs deserve evidence.
   not enter replies, logs, or commits.
 
 The full prompt lives in
-[gpt-5.6-sol-system-prompt-fable-like.md](gpt-5.6-sol-system-prompt-fable-like.md).
+[`gpt-5.6-sol-system-prompt-fable-like.md`](gpt-5.6-sol-system-prompt-fable-like.md).
 
-## Use with the Scoville family
+## How it works
 
-The system prompt and Agent Skills act together during generation; a skill is
-not a cleanup pass over a finished answer.
+The prompt starts from the official Codex `base_instructions` in
+[models.json](https://github.com/openai/codex/blob/main/codex-rs/models-manager/models.json).
+It preserves that architecture and changes the parts that govern collaboration
+and writing.
 
-- [Scoville Code Anti-AI-Slop](https://github.com/benjaminstelzer/scoville-code-anti-ai-slop)
-  adds a focused engineering contract for scope, ownership, integrity, and
-  proportionate validation.
-- [Scoville Scribe Anti-AI-Slop](https://github.com/benjaminstelzer/scoville-scribe-anti-ai-slop)
-  protects meaning, terminology, reader outcome, and text-surface contracts.
-- [Scoville UI Anti-AI-Slop](https://github.com/benjaminstelzer/scoville-ui-anti-ai-slop)
-  protects framework ownership, hierarchy, interaction, responsiveness,
-  accessibility, and rendered evidence.
+Conversation rules apply only to direct assistant-user communication.
+Requested artifacts keep their own source, audience, genre, and voice, while
+safety, factual integrity, and honest reporting apply everywhere. Agent Skills
+compose with the prompt during generation; they are not cleanup passes over an
+answer that has already wandered off.
 
-Install only the skills relevant to your work. The system prompt supplies the
-general collaboration behavior; the selected skill supplies the specialized
-contract.
-
-## Design
-
-The prompt preserves Codex's official architecture and changes the parts that
-govern collaboration and writing. Conversation rules apply only to direct
-assistant-user communication. Requested artifacts keep their own voice, while
-safety, factual integrity, and honest reporting apply everywhere.
-
-The prompt prefers observable triggers over style imitation. A small-sample
+The rules use observable triggers rather than style imitation. A small-sample
 claim can trigger a visibly hypothetical numerical counterexample. A request
-about a tool's usefulness can trigger one representative workflow from input
-to external verification. These rules improve explanatory completeness without
-requiring every answer to be long, formatted, or humorous.
+about a tool's usefulness can trigger one representative workflow from input to
+external verification. These mechanisms improve explanatory completeness
+without requiring every answer to be long, formatted, or humorous.
 
-## Sources and inspirations
+## Scoville family
+
+Each Skill works independently. Combine only the concerns the task actually
+needs:
+
+- [Brainstorm](https://github.com/benjaminstelzer/scoville-brainstorm) explores
+  materially different mechanisms before selection.
+- [Code](https://github.com/benjaminstelzer/scoville-code-anti-ai-slop) owns
+  engineering scope, implementation, risk, and validation.
+- [UI](https://github.com/benjaminstelzer/scoville-ui-anti-ai-slop) owns
+  interface hierarchy, framework fit, accessibility, and rendered evidence.
+- [Scribe](https://github.com/benjaminstelzer/scoville-scribe-anti-ai-slop) owns
+  wording, terminology, factual meaning, and source fidelity.
+- [Plan](https://github.com/benjaminstelzer/scoville-plan) owns durable Plans,
+  Work Items, Decisions, and lifecycle state.
+- [Handoff](https://github.com/benjaminstelzer/scoville-handoff) transfers active
+  work to another agent or session.
+
+## Status
+
+The repository contains the modified prompt, this README, a changelog, the
+Apache 2.0 license, and the required notice. It contains no installer,
+executable code, model weights, telemetry, or runtime network integration.
+
+The current prompt is calibrated against a fixed 40-question suite plus focused
+tests for explanatory examples, numeric invariants, completion conditions,
+structure, source fidelity, and controlled humor. These checks demonstrate the
+tested behaviors; they do not guarantee identical output for every request.
+
+The prompt tracks a changing upstream file. After a Codex update, compare the
+Skills section with the current GPT-5.6 Sol `base_instructions`, verify that the
+named tools and channels still exist, and rerun the fixed tests before adopting
+the new base. Last verified against upstream: 2026-07-18.
+
+## Sources
 
 - The official Codex `base_instructions` for GPT-5.6 Sol in
   [models.json](https://github.com/openai/codex/blob/main/codex-rs/models-manager/models.json)
@@ -149,26 +184,9 @@ requiring every answer to be long, formatted, or humorous.
 - A fixed set of Fable 5 outputs supplies the comparison target for directness,
   reasoning depth, and honest limits. The prompt adopts observed response
   mechanics, not unsupported claims or hidden implementation details.
-- The Scoville family provides specialized engineering, prose, and interface
-  contracts that compose with this general prompt.
-
-## Repository contents
-
-The repository contains the modified prompt, this README, a changelog, the
-Apache 2.0 license, and the required notice. It contains no installer, executable
-code, model weights, telemetry, or runtime network integration.
-
-## Status
-
-The current prompt is calibrated against a fixed 40-question suite plus focused
-tests for explanatory examples, numeric invariants, completion conditions,
-structure, source fidelity, and controlled humor. These checks demonstrate the
-tested behaviors; they do not guarantee identical output for every request.
-
-This prompt tracks a changing upstream file. After a Codex update, compare the
-skills section with the current GPT-5.6 Sol `base_instructions`, verify that the
-named tools and channels still exist, and rerun the fixed tests before adopting
-the new base. Last verified against upstream: 2026-07-18.
+- The Scoville family supplies specialized engineering, prose, interface,
+  planning, ideation, and handoff contracts that compose with the general
+  prompt.
 
 ## License
 

@@ -162,6 +162,11 @@ regression. It must never offer the complete prompt for general compression.
 
 ## Scoville family
 
+The Scoville Skills are optional. The prompt works without them through its
+compact fallback rules. When a listed Skill is available at runtime and applies
+to the task, the prompt delegates that concern to it as the detailed owner. It
+does not install, require, simulate, or recreate a missing Skill.
+
 Each Skill works independently. Combine only the concerns the task actually
 needs:
 

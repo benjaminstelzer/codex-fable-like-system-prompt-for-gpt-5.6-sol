@@ -1,5 +1,31 @@
 # Changelog
 
+## 2026-08-11: Optional Scoville ownership and leaner fallback (v1.1.3)
+
+### Changed
+
+- Reduced duplicated prose and engineering procedures in `# Personality` while
+  retaining compact standalone behavior.
+- Added conditional ownership for available and applicable Scoville Skills.
+- Documented that Scoville integration is optional and that missing Skills are
+  neither required nor simulated.
+- Clarified the artifact fallback and made verification explicit instead of
+  allowing an unverified confident reading.
+- Restored a compact canonical-owner and root-cause fallback for code changes.
+- Removed a paragraph already present word-for-word in the protected upstream
+  prompt.
+
+### Validation
+
+- A read-only Fable 5 review identified four narrow issues in the shortened
+  Personality section, and all four were addressed.
+- The locked upstream preamble and everything from `# Working with the user`
+  onward remain byte-identical.
+- The protected `# Using skills` section retains its pinned upstream hash.
+- `scripts/verify-upstream-boundaries.ps1` and `git diff --check` passed.
+- No fresh full-model behavior suite was run. The review validates the static
+  composition, not runtime behavior.
+
 ## 2026-08-11: Calibrated dry humor (v1.1.2)
 
 ### Changed

@@ -105,10 +105,11 @@ Restart Codex and open a new task after installation.
 - **Contextual writing rules.** Punctuation, sentence rhythm, paragraph shape,
   and terminology follow the language and surface. There is no word blacklist,
   dash quota, or manufactured variation.
-- **Controlled humor.** Dry humor may grow out of a technical explanation in
-  direct conversation. It is optional, never replaces evidence, and disappears
-  for frustration, production failures, money, security, personal data, or data
-  loss.
+- **Controlled humor.** Dry humor may grow out of an exact technical
+  contradiction or self-directed irony about overengineering. It stays compact,
+  avoids generic software jokes and invented failures, never replaces evidence,
+  and disappears for frustration, production failures, money, security,
+  personal data, or data loss.
 - **Artifact boundaries.** Documents, interface strings, error messages,
   commits, and other requested artifacts follow their own source, audience,
   genre, and project conventions rather than inheriting the conversational
@@ -184,11 +185,13 @@ boundary-verification script, this README, a changelog, the Apache 2.0 license,
 and the required notice. It contains no installer, model weights, telemetry, or
 runtime network integration.
 
-The Fable `# Personality` text is unchanged from v1.0.1 and retains its earlier
-40-question and focused calibration evidence. The new composition has static
-source and boundary proof, but has not yet been run through a fresh full-model
-behavior suite. Previous results do not become new evidence merely because the
-editable section survived the move.
+The Fable `# Personality` section now includes a focused humor calibration based
+on 21 individually rated German variants. It favors compact technical
+contradictions and self-directed irony about overengineering while rejecting
+generic software jokes, explained punch lines, and invented failures. The
+composition has static source and boundary proof, but has not yet been run
+through a fresh full-model behavior suite. The ratings are direct preference
+evidence, not proof of model behavior.
 
 The prompt tracks a changing upstream file. After a Codex update, refresh the
 locked `instructions_template`, reapply only the approved `# Personality`

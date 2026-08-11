@@ -1,5 +1,40 @@
 # Changelog
 
+## 2026-08-11: Calibrated dry humor (v1.1.2)
+
+### Changed
+
+- Refined the direct-conversation humor rule from 21 individually rated German
+  variants.
+- Favored compact technical contradictions and self-directed irony about
+  overengineering.
+- Rejected generic software jokes, explained punch lines, and invented
+  incompetence, damage, or failure used only to create humor.
+- Kept the existing artifact boundary and the humor shutoffs for frustration,
+  production, money, security, personal data, and data loss.
+
+### Validation
+
+- The locked upstream preamble and everything from `# Working with the user`
+  onward remain byte-identical.
+- The protected `# Using skills` section retains its pinned upstream hash.
+- `scripts/verify-upstream-boundaries.ps1` and `git diff --check` passed.
+- No fresh full-model behavior suite was run. The 21 ratings calibrate the rule
+  but do not prove runtime behavior.
+
+## 2026-08-11: Simpler README punctuation (v1.1.1)
+
+### Changed
+
+- Removed em dashes and semicolons from the public README.
+- Kept the prompt, Skills, scripts, and behavioral contracts unchanged.
+
+### Validation
+
+- Only `README.md` changed in the release commit.
+- The README contained neither an em dash nor a semicolon.
+- Local Markdown links and `git diff --check` passed.
+
 ## 2026-08-11: Upstream-exact operational contract (v1.1.0)
 
 ### Changed
